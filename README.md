@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/dcycle/expose_status.svg?style=svg)](https://circleci.com/gh/dcycle/expose_status)
+
 Expose status report
 =====
 
