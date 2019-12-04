@@ -31,6 +31,15 @@ class ExposeStatusController {
   }
 
   /**
+   * Mockable wrapper around a cacheable JSON response with metadata.
+   */
+  public function cacheableResponse(array $result) : CacheableJsonResponse {
+    $response = new CacheableJsonResponse($result['response']);
+    $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($result['cache']));
+    return $response;
+  }
+
+  /**
    * Generate a response based on a /admin/reports/status/[token] request.
    *
    * This assumes that access has already been determined using the ::access()
@@ -46,12 +55,7 @@ class ExposeStatusController {
    */
   public function get(Request $request) : CacheableJsonResponse {
     $result = $this->exposeStatusService()->result($request);
-    $response = new CacheableJsonResponse($result['response']);
-    $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($result['cache']));
-    if (array_key_exists('raw', $result)) {
-      $response->addCacheableDependency($result['raw']);
-    }
-    return $response;
+    return $this->cacheableResponse($result);
   }
 
 }

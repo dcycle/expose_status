@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Test Details.
  *
- * @group expose_status_phpunit_only
+ * @group expose_status
  */
 class DetailsTest extends TestCase {
 
@@ -17,9 +17,8 @@ class DetailsTest extends TestCase {
    * Test for alterResponse().
    *
    * @cover ::alterResponse
-   * @dataProvider providerAlterResponse
    */
-  public function testAlterResponse(string $message, array $result, array $response, string $get, array $expected) {
+  public function testAlterResponse() {
     $object = $this->getMockBuilder(Details::class)
       // NULL = no methods are mocked; otherwise list the methods here.
       ->setMethods(NULL)
@@ -42,12 +41,8 @@ class DetailsTest extends TestCase {
     $message = 'Details should be added to output';
     $expected = [
       'details' => [
-        'a' => [
-          'severity' => 1,
-        ],
-        'b' => [
-          'severity' => 2,
-        ],
+        'a' => 1,
+        'b' => 2,
       ],
     ];
 

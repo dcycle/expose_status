@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\expose_status\Unit\Controller;
 
+use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\expose_status\Controller\ExposeStatusController;
 use Drupal\expose_status\ExposeStatus;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Test ExposeStatusController.
  *
- * @group expose_status_phpunit_only
+ * @group expose_status
  */
 class ExposeStatusControllerTest extends TestCase {
 
@@ -104,6 +105,7 @@ class ExposeStatusControllerTest extends TestCase {
     $object = $this->getMockBuilder(ExposeStatusController::class)
       // NULL = no methods are mocked; otherwise list the methods here.
       ->setMethods([
+        'cacheableResponse',
         'exposeStatusService',
       ])
       ->disableOriginalConstructor()
@@ -120,6 +122,18 @@ class ExposeStatusControllerTest extends TestCase {
         }
       });
 
+    $object->method('cacheableResponse')
+      ->will($this->returnCallback(function ($result) {
+        return new class($result) extends CacheableJsonResponse {
+          public function __construct($result) {
+            $this->result = $result;
+          }
+          public function result() {
+            return $this->result;
+          }
+        };
+      }));
+
     $message = 'Valid token';
     $expected = [
       'response' => [
@@ -130,12 +144,8 @@ class ExposeStatusControllerTest extends TestCase {
       ],
     ];
 
-    $output_object = $object->get(new Request);
-    $output = [
-      'response' => $output_object->response,
-      'cache' => $output_object->cache,
-    ];
-
+    $output = $object->get(new Request())->result();
+    
     if ($output != $expected) {
       print_r([
         'message' => $message,
