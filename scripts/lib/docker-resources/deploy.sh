@@ -20,5 +20,5 @@ do
 done
 
 drush si -y --db-url "mysqli://root:drupal@mysql/drupal" minimal
-drush en -y expose_status_ignore expose_status_severity
+drush en -y expose_status_ignore expose_status_severity expose_status_details
 drush ev "\Drupal::service('expose_status')->instructions()"

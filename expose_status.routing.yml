@@ -4,4 +4,6 @@ expose_status.status:
   defaults:
     _controller: '\Drupal\expose_status\Controller\ExposeStatusController::get'
   requirements:
-    _permission: 'access content'
+    # yamllint disable rule:line-length
+    _custom_access: '\Drupal\expose_status\Controller\ExposeStatusController::access'
+    # yamllint enable

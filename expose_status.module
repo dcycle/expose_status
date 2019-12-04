@@ -15,3 +15,10 @@ function expose_status_instructions() {
   print('See module README.md file for more details.' . PHP_EOL);
   print(PHP_EOL);
 }
+
+/**
+ * Quick access print the token.
+ */
+function expose_status_token() {
+  print(\Drupal::service('expose_status')->token());
+}
