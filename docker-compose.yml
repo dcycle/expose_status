@@ -1,0 +1,28 @@
+---
+version: '2'
+
+services:
+  drupal:
+    image: dcycle/drupal:8drush
+    volumes:
+      - ".:/var/www/html/modules/custom/expose_status"
+    ports:
+      - "80"
+    links:
+      - mysql:mysql
+    working_dir: /var/www/html
+
+  mysql:
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_ROOT_PASSWORD: drupal
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+
+# Specifying the network name makes it predictable on all environments,
+# for example when we run browser tests.
+# See https://github.com/docker/compose/issues/3736.
+networks:
+  default:
+    external:
+      name: expose_status_default

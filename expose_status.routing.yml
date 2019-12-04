@@ -1,0 +1,7 @@
+---
+expose_status.status:
+  path: '/admin/reports/status/expose/{token}'
+  defaults:
+    _controller: '\Drupal\expose_status\Controller\ExposeStatusController::get'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install hooks.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function expose_status_requirements(string $phase) : array {
+  if ($phase != 'runtime') {
+    return [];
+  }
+  return \Drupal::service('expose_status')->hookRequirements($phase);
+}

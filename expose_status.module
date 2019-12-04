@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Runtime hooks.
+ */
+
+/**
+ * Quick access to the ExposeStatus service / singleton.
+ */
+function expose_status_instructions() {
+  print(PHP_EOL);
+  print(\Drupal::service('expose_status')->instructions() . PHP_EOL);
+  print(PHP_EOL);
+  print('See module README.md file for more details.' . PHP_EOL);
+  print(PHP_EOL);
+}

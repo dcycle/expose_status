@@ -1,0 +1,8 @@
+---
+name: Expose Status Report Details
+type: module
+description: Expose details in addition to the overall result.
+core: '8.x'
+php: '7.x'
+dependencies:
+  - expose_status:expose_status

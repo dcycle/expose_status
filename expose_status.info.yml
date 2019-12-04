@@ -1,0 +1,6 @@
+---
+name: Expose Status Report
+type: module
+description: Expose a Drupal site's status report via JSON.
+core: '8.x'
+php: '7.x'

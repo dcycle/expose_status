@@ -1,0 +1,7 @@
+---
+services:
+  expose_status:
+    class: Drupal\expose_status\ExposeStatus
+  plugin.manager.expose_status:
+    class: Drupal\expose_status\ExposeStatusPluginManager
+    parent: default_plugin_manager
