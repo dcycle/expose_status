@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ExposeStatusControllerTest extends TestCase {
 
   /**
-   * Test for get().
+   * Test for access().
    *
    * @param string $message
    *   The test message.
@@ -23,13 +23,84 @@ class ExposeStatusControllerTest extends TestCase {
    *   The mock user token.
    * @param string $system_token
    *   The mock system token.
-   * @param array $expected
+   * @param string $expected
    *   The expected result; ignored if an exception is expected.
    *
-   * @cover ::get
-   * @dataProvider providerGet
+   * @cover ::access
+   * @dataProvider providerAccess
    */
-  public function testGet(string $message, string $user_token, string $system_token, array $expected) {
+  public function testAccess(string $message, string $user_token, string $system_token, $expected) {
+    $object = $this->getMockBuilder(ExposeStatusController::class)
+      // NULL = no methods are mocked; otherwise list the methods here.
+      ->setMethods([
+        'accessAllowed',
+        'accessForbidden',
+        'exposeStatusService',
+      ])
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $object->method('accessAllowed')
+      ->willReturn('allowed');
+    $object->method('accessForbidden')
+      ->willReturn('forbidden');
+    // @codingStandardsIgnoreStart
+    $object->method('exposeStatusService')
+      ->willReturn(new class($system_token) extends ExposeStatus {
+        public function __construct($token) {
+          $this->token = $token;
+        }
+        public function token(bool $obfuscate = FALSE, bool $reset = FALSE) : string {
+          return $this->token;
+        }
+      });
+
+    $output = $object->access($user_token);
+
+    if ($output != $expected) {
+      print_r([
+        'output' => $message,
+        'output' => $output,
+        'expected' => $expected,
+      ]);
+    }
+
+    $this->assertTrue($output == $expected, $message);
+    // @codingStandardsIgnoreEnd
+  }
+
+  /**
+   * Provider for testAccess().
+   */
+  public function providerAccess() {
+    return [
+      [
+        'message' => 'Wrong token',
+        'user_token' => 'hello',
+        'system_token' => 'world',
+        'expected' => 'forbidden',
+      ],
+      [
+        'message' => 'No token',
+        'user_token' => '',
+        'system_token' => '',
+        'expected' => 'forbidden',
+      ],
+      [
+        'message' => 'Right token',
+        'user_token' => 'hello world',
+        'system_token' => 'hello world',
+        'expected' => 'allowed',
+      ],
+    ];
+  }
+
+  /**
+   * Test for get().
+   *
+   * @cover ::get
+   */
+  public function testGet() {
     $object = $this->getMockBuilder(ExposeStatusController::class)
       // NULL = no methods are mocked; otherwise list the methods here.
       ->setMethods([
@@ -40,22 +111,26 @@ class ExposeStatusControllerTest extends TestCase {
 
     // @codingStandardsIgnoreStart
     $object->method('exposeStatusService')
-      ->willReturn(new class($system_token) extends ExposeStatus {
-        public function __construct($token) {
-          $this->token = $token;
-        }
+      ->willReturn(new class() extends ExposeStatus {
         public function result(Request $request) : array {
           return [
             'cache' => ['some-cache-data'],
             'response' => ['some-valid-response'],
           ];
         }
-        public function token(bool $obfuscate = FALSE, bool $reset = FALSE) : string {
-          return $this->token;
-        }
       });
 
-    $output_object = $object->get(new Request, $user_token);
+    $message = 'Valid token';
+    $expected = [
+      'response' => [
+        'some-valid-response',
+      ],
+      'cache' => [
+        'some-cache-data',
+      ],
+    ];
+
+    $output_object = $object->get(new Request);
     $output = [
       'response' => $output_object->response,
       'cache' => $output_object->cache,
@@ -71,90 +146,6 @@ class ExposeStatusControllerTest extends TestCase {
 
     $this->assertTrue($output == $expected, $message);
     // @codingStandardsIgnoreEnd
-  }
-
-  /**
-   * Provider for testGet().
-   */
-  public function providerGet() {
-    return [
-      [
-        'message' => 'Invalid token',
-        'user_token' => 'hello',
-        'system_token' => 'world',
-        'expected' => [
-          'response' => [
-            'error' => 'Token is not valid',
-          ],
-          'cache' => [
-            '#cache' => [
-              'max-age' => 0,
-              'contexts' => [
-                'url',
-              ],
-              'tags' => [
-                'expose-status-security-token-has-changed',
-              ],
-            ],
-          ],
-        ],
-      ],
-      [
-        'message' => 'No token',
-        'user_token' => '',
-        'system_token' => '',
-        'expected' => [
-          'response' => [
-            'error' => 'Token is not valid',
-          ],
-          'cache' => [
-            '#cache' => [
-              'max-age' => 0,
-              'contexts' => [
-                'url',
-              ],
-              'tags' => [
-                'expose-status-security-token-has-changed',
-              ],
-            ],
-          ],
-        ],
-      ],
-      [
-        'message' => 'No token, but system token exists',
-        'user_token' => '',
-        'system_token' => 'hello',
-        'expected' => [
-          'response' => [
-            'error' => 'Token is not valid',
-          ],
-          'cache' => [
-            '#cache' => [
-              'max-age' => 0,
-              'contexts' => [
-                'url',
-              ],
-              'tags' => [
-                'expose-status-security-token-has-changed',
-              ],
-            ],
-          ],
-        ],
-      ],
-      [
-        'message' => 'Valid token',
-        'user_token' => 'hello',
-        'system_token' => 'hello',
-        'expected' => [
-          'response' => [
-            'some-valid-response',
-          ],
-          'cache' => [
-            'some-cache-data',
-          ],
-        ],
-      ],
-    ];
   }
 
 }

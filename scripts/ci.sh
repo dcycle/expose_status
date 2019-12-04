@@ -10,5 +10,8 @@ echo '=> Run fast tests.'
 echo '=> Deploy an environment.'
 ./scripts/deploy.sh
 
+echo '=> Tests on environment.'
+./scripts/test-running-environment.sh
+
 echo '=> Destroy the environment.'
 ./scripts/destroy.sh
