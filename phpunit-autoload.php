@@ -14,6 +14,7 @@ spl_autoload_register(function ($class) {
   $custom_code = [
     'expose_status' => '.',
     'expose_status_ignore' => 'modules/expose_status_ignore',
+    'expose_status_details' => 'modules/expose_status_details',
     'expose_status_severity' => 'modules/expose_status_severity',
   ];
 

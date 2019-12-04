@@ -5,6 +5,6 @@
 set -e
 
 docker run -v "$(pwd)":/app phpunit/phpunit \
-  --group expose_status,expose_status_phpunit_only
+  --group expose_status
 
 docker run --rm -v "$(pwd):/var/www/html/modules/custom" dcycle/drupal-tester:1 /bin/bash -c "chsh -s /bin/bash www-data && su - www-data -- /scripts/test.sh expose_status"

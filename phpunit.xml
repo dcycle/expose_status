@@ -5,6 +5,7 @@
       <directory>./tests/src/Unit</directory>
       <directory>./modules/expose_status_ignore/tests/src/Unit</directory>
       <directory>./modules/expose_status_severity/tests/src/Unit</directory>
+      <directory>./modules/expose_status_details/tests/src/Unit</directory>
     </testsuite>
   </testsuites>
 </phpunit>
