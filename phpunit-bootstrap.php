@@ -10,19 +10,8 @@ namespace Drupal\Component\Plugin {
 }
 
 namespace Drupal\Core\Cache {
-  class CacheableJsonResponse {
-    public function __construct($response) {
-      $this->response = $response;
-    }
-    public function addCacheableDependency($cache) {
-      $this->cache = $cache;
-    }
-  }
-  class CacheableMetadata {
-    public static function createFromRenderArray($x) {
-      return $x;
-    }
-  }
+  class CacheableJsonResponse {}
+  class CacheableMetadata {}
 }
 
 namespace Drupal\Core\Messenger {

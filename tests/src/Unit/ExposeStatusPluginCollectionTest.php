@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\expose_status\Unit;
 
-use Drupal\expose_status\ExposeStatusPluginManager;
 use Drupal\expose_status\ExposeStatusPluginCollection;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +36,7 @@ class ExposeStatusPluginCollectionTest extends TestCase {
 
     // @codingStandardsIgnoreStart
     $object->method('pluginManager')
-      ->willReturn(new class($input) extends ExposeStatusPluginManager {
+      ->willReturn(new class($input) {
         public function __construct($input) {
           $this->input = $input;
         }
@@ -107,24 +106,81 @@ class ExposeStatusPluginCollectionTest extends TestCase {
   }
 
   /**
-   * Get plugin definitions based on their annotations.
+   * Test for plugins().
    *
-   * @return array
-   *   Array of plugin definitions.
+   * @param string $message
+   *   The test message.
+   * @param array $input
+   *   The input.
+   * @param array $expected
+   *   The expected result; ignored if an exception is expected.
    *
-   * @throws \Exception
+   * @cover ::plugins
+   * @dataProvider providerPlugins
    */
-  public function pluginDefinitions() : array {
-    $return = $this->pluginManager()->getDefinitions();
+  public function testPlugins(string $message, array $input, array $expected) {
+    $object = $this->getMockBuilder(ExposeStatusPluginCollection::class)
+      // NULL = no methods are mocked; otherwise list the methods here.
+      ->setMethods([
+        'pluginDefinitions',
+        'pluginManager',
+      ])
+      ->disableOriginalConstructor()
+      ->getMock();
 
-    uasort($return, function (array $a, array $b) : int {
-      if ($a['weight'] == $b['weight']) {
-          return 0;
-      }
-      return ($a['weight'] < $b['weight']) ? -1 : 1;
-    });
+    // @codingStandardsIgnoreStart
+    $object->method('pluginDefinitions')
+      ->willReturn($input);
+    $object->method('pluginManager')
+      ->willReturn(new class() {
+        function __construct() {}
+        function createInstance($x) {
+          return 'instance of ' . $x;
+        }
+      });
 
-    return $return;
+    $object->expects($this->once())
+      ->method('pluginDefinitions');
+    $output = $object->plugins(TRUE);
+    $object->expects($this->never())
+      ->method('pluginDefinitions');
+    $output2 = $object->plugins();
+
+    $this->assertTrue($output == $output2, 'static memory works.');
+
+    if ($output != $expected) {
+      print_r([
+        'output' => $output,
+        'expected' => $expected,
+      ]);
+    }
+
+    $this->assertTrue($output == $expected, $message);
+    // @codingStandardsIgnoreEnd
+  }
+
+  /**
+   * Provider for testPlugins().
+   */
+  public function providerPlugins() {
+    return [
+      [
+        'message' => 'Plugins exist',
+        'input' => [
+          'plugin_id_1' => 'whatever',
+          'plugin_id_2' => 'whatever',
+        ],
+        'expected' => [
+          'plugin_id_1' => 'instance of plugin_id_1',
+          'plugin_id_2' => 'instance of plugin_id_2',
+        ],
+      ],
+      [
+        'message' => 'No plugin',
+        'input' => [],
+        'expected' => [],
+      ],
+    ];
   }
 
 }
