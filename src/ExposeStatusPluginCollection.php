@@ -15,27 +15,38 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
   /**
    * Mockable wrapper around \Drupal::service('plugin.manager.expose_status').
    *
-   * @return ExposeStatusPluginManager
-   *   The ExposeStatusPluginManager service.
+   * @return mixed
+   *   The ExposeStatusPluginManager service. We are not specifying its type
+   *   here because during testing we want to mock pluginManager() without
+   *   extending ExposeStatusPluginManager; when we do, it works fine in
+   *   PHPUnit directly. However when attempting to run within Drupal we
+   *   get an unhelpful message as described in
+   *   https://drupal.stackexchange.com/questions/252930. Therefore we simply
+   *   use an anonymous class.
    *
    * @throws \Exception
    */
-  public function pluginManager() : ExposeStatusPluginManager {
+  public function pluginManager() {
     return \Drupal::service('plugin.manager.expose_status');
   }
 
   /**
    * Get plugin objects.
    *
+   * @param bool $reset
+   *   Whether to re-fetch plugins; otherwise we use the static variable.
+   *   This can be useful during testing.
+   *
    * @return array
    *   Array of plugin objects.
    *
    * @throws \Exception
    */
-  public function plugins() : array {
+  public function plugins(bool $reset = FALSE) : array {
     static $return = NULL;
 
-    if ($return === NULL) {
+    if ($return === NULL || $reset) {
+      $return = [];
       foreach (array_keys($this->pluginDefinitions()) as $plugin_id) {
         $return[$plugin_id] = $this->pluginManager()->createInstance($plugin_id, ['of' => 'configuration values']);
       }

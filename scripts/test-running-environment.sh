@@ -10,3 +10,8 @@ TOKEN="$(docker-compose exec drupal /bin/bash -c 'drush ev "expose_status_token(
 
 curl "$URL/admin/reports/status/expose/not-the-right-token" | grep 'Access denied'
 curl "$URL/admin/reports/status/expose/$TOKEN" | grep '"status":"issues found; please check"'
+
+docker-compose exec drupal /bin/bash -c 'drush pmu -y expose_status_details expose_status_ignore expose_status_severity'
+
+curl "$URL/admin/reports/status/expose/not-the-right-token" | grep 'Access denied'
+curl "$URL/admin/reports/status/expose/$TOKEN" | grep '"status":"issues found; please check"'

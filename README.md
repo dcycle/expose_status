@@ -16,7 +16,7 @@ Typical usage
 
     drush ev "expose_status_instructions()"
 
-(3) visit the URL provided, which will look like
+(3) visit the URL provided, which will look like example.com/admin/reports/status/expose/[token] and yield the following JSON:
 
     {"status":"issues found; please check","generated":"2019-12-04 17:36:02"}
 
