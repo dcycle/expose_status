@@ -1,1 +1,3 @@
 .DS_Store
+# README.html is generated from .md, ignore it.
+README.html
