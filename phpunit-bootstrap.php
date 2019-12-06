@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * See https://blog.dcycle.com/unit.
+ */
+
 // @codingStandardsIgnoreStart
 namespace Drupal\Component\Annotation {
   class Plugin {}

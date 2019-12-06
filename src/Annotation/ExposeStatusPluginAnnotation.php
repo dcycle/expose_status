@@ -9,6 +9,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * See the plugin_type_example module of the examples module for how this works.
  *
+ * @see http://drupal.org/project/examples
  * @see \Drupal\expose_status\ExposeStatusPluginManager
  * @see plugin_api
  *

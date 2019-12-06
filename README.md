@@ -87,4 +87,4 @@ To run automated tests locally, install Docker and type:
 Drupal 9 readiness
 -----
 
-During the continuous integration process, this code is tested for deprecated code using a [dockerized version]() of [Drupal Check](https://github.com/dcycle/docker-drupal-check).
+During the continuous integration process, this code is tested for deprecated code using a [dockerized version](https://github.com/dcycle/docker-drupal-check) of [Drupal Check](https://github.com/dcycle/docker-drupal-check).
