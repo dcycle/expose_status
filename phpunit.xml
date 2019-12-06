@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- See https://blog.dcycle.com/unit -->
 <phpunit bootstrap="phpunit-autoload.php">
   <testsuites>
     <testsuite name="myproject">

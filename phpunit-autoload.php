@@ -8,6 +8,8 @@
  * minimum it needs to know in order to find classes by namespace.
  *
  * Used by the PHPUnit test runner and referenced in ./phpunit.xml.
+ *
+ * See also https://blog.dcycle.com/unit
  */
 
 spl_autoload_register(function ($class) {

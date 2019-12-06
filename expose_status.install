@@ -9,7 +9,12 @@
  * Implements hook_requirements().
  */
 function expose_status_requirements(string $phase) : array {
+  // Make sure the phase is runtime, otherwise (during installation for
+  // example) the expose_status service will not be available.
   if ($phase != 'runtime') {
+    // If ther are any non-runtime requirements, we do not have access
+    // to the expose_status, so we would define them here.
+    // (There are none at the time of this writing.)
     return [];
   }
   return \Drupal::service('expose_status')->hookRequirements($phase);

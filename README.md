@@ -3,7 +3,7 @@
 Expose status report
 =====
 
-Every Drupal site has a status report dashboard at /admin/reports/status. This module allows you to expose, as JSON, whether everything is OK or not.
+Every Drupal site has a status report dashboard at /admin/reports/status. **Expose Status Report** allows you to expose, as JSON, whether everything is OK or not.
 
 The idea is that if you are managing several Drupal sites, you can set up a dashboard or some Jenkins jobs to keep track of the status of all sites in one place.
 
@@ -20,17 +20,17 @@ Typical usage
 
     {"status":"issues found; please check","generated":"2019-12-04 17:36:02"}
 
-A status of "issues found; please check" means there are errors or warnings. The system will not tell you what they are.
+A status of "issues found; please check" means there are errors or warnings.
 
 Showing details
 -----
 
-Status details can contain sensitive information, so be careful when showing details. To do so enable the included "expose_status_details" module.
+By default the system will not give you details of issues found, because status details can contain sensitive information. If you need to expose more details, you can do so by enabling the included "expose_status_details" module.
 
 Ignoring certain warnings
 -----
 
-Let's say you want to ignore the "File system", "Trusted Host Settings" and " Drupal core update status" errors/warnings (not recommended, just for illustration purposes), you can:
+Let's say you want to ignore the "File system", "Trusted Host Settings" and "Drupal core update status" errors/warnings (not recommended, just for illustration purposes), you can:
 
 (1) enable the included "expose_status_ignore" module.
 
@@ -61,23 +61,30 @@ Local development
 
 If you install Docker on your computer:
 
-* you can set up a complete local development workspace by downloading this code and running `./scripts/deploy.sh`. You do not need a separate Drupal instance. `./scripts/uli.sh` will provide you with a login link to your environment.
+* you can set up a complete local development workspace by downloading this codebase and running `./scripts/deploy.sh`. You do not need a separate Drupal instance. `./scripts/uli.sh` will provide you with a login link to your environment.
 * you can destroy your local environment by running `./scripts/destroy.sh`.
 * you can run all tests by running `./scripts/ci.sh`; please make sure all tests before submitting a patch.
 
 Similar modules
 -----
 
-* [System Status](https://www.drupal.org/project/system_status) works in a similar way, but it is designed to work with cloud service, and it seems to expose, for a given environment, all version data for core and contrib, whereas Expose status report exports whether at least one issue needing attention.
+* [System Status](https://www.drupal.org/project/system_status) works in a similar way, but it is designed to work with cloud service, and it seems to expose, for a given environment, all version data for core and contrib, whereas Expose status report exports issues needing attention.
 
 Automated testing
 -----
 
-This module's main page is on Drupal.org; a mirror is kept on GitHub.
+This module's main page is on [Drupal.org](http://drupal.org/project/expose_status); a mirror is kept on [GitHub](http://github.com/dcycle/expose_status).
 
-Unit tests are performed on Drupal.org's infrastructure and in GitHub. Linting is performed on GitHub using CircleCI and Drupal.org.
+Unit tests are performed on Drupal.org's infrastructure and in GitHub using CircleCI. Linting is performed on GitHub using CircleCI and Drupal.org.
+
+* [Test results on Drupal.org's testing infrastructure](https://www.drupal.org/node/3098822/qa)
+* [Test results on CircleCI](https://circleci.com/gh/dcycle/expose_status)
+
+To run automated tests locally, install Docker and type:
+
+    ./scripts/ci.sh
 
 Drupal 9 readiness
 -----
 
-During the continuous integration process, this code is tested for deprecated code using [Drupal Check](https://github.com/mglaman/drupal-check).
+During the continuous integration process, this code is tested for deprecated code using a [dockerized version](https://github.com/dcycle/docker-drupal-check) of [Drupal Check](https://github.com/dcycle/docker-drupal-check).
