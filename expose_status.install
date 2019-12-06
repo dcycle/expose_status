@@ -19,3 +19,10 @@ function expose_status_requirements(string $phase) : array {
   }
   return \Drupal::service('expose_status')->hookRequirements($phase);
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function expose_status_uninstall() {
+  \Drupal::state()->delete('expose_status_token');
+}
