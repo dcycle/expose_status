@@ -2,7 +2,7 @@
 
 namespace Drupal\expose_status;
 
-use Drupal\Component\Utility\Random;
+use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Render\RenderContext;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -41,6 +41,16 @@ class ExposeStatus {
     return array_merge([
       $base_url . '/admin/reports/status/expose/' . $token,
     ], $this->plugins()->exampleUrls($base_url, $token));
+  }
+
+  /**
+   * Generate a random token.
+   *
+   * @return string
+   *   A random token.
+   */
+  public function generateToken() : string {
+    return Crypt::hashBase64(Crypt::randomBytes(128));
   }
 
   /**
@@ -201,7 +211,7 @@ class ExposeStatus {
   public function token(bool $obfuscate = FALSE, bool $reset = FALSE) : string {
     $candidate = \Drupal::state()->get('expose_status_token', '');
     if (!$candidate || $reset) {
-      $candidate = md5(Random::string(128));
+      $candidate = $this->generateToken();
       \Drupal::service('cache_tags.invalidator')
         ->invalidateTags([
           'expose-status-security-token-has-changed',
