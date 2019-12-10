@@ -5,6 +5,20 @@
  * Runtime hooks.
  */
 
+// @codingStandardsIgnoreStart
+use Drupal\expose_status\ExposeStatus;
+// @codingStandardsIgnoreEnd
+
+/**
+ * Quick access to the expose_status service, useful for debugging.
+ *
+ * @return ExposeStatus
+ *   The ExposeStatus service.
+ */
+function expose_status() : ExposeStatus {
+  return \Drupal::service('expose_status');
+}
+
 /**
  * Quick access to the ExposeStatus service / singleton.
  *
@@ -12,7 +26,7 @@
  */
 function expose_status_instructions() {
   print(PHP_EOL);
-  print(\Drupal::service('expose_status')->instructions() . PHP_EOL);
+  print(expose_status()->instructions() . PHP_EOL);
   print(PHP_EOL);
   print('See module README.md file for more details.' . PHP_EOL);
   print(PHP_EOL);
@@ -24,5 +38,5 @@ function expose_status_instructions() {
  * Use 'drush ev "expose_status_token()"'.
  */
 function expose_status_token() {
-  print(\Drupal::service('expose_status')->token());
+  print(expose_status()->token());
 }
