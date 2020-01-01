@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Run unit tests à la Drupal. Requires the container to be running.
+# Run unit tests a la Drupal. Requires the container to be running.
 #
 set -e
 
