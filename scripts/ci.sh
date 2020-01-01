@@ -10,6 +10,9 @@ echo '=> Run fast tests.'
 echo '=> Deploy an environment.'
 ./scripts/deploy.sh
 
+echo '=> Drupal PHPUnit tests.'
+./scripts/php-unit-drupal.sh
+
 echo '=> Tests on environment.'
 ./scripts/test-running-environment.sh
 
