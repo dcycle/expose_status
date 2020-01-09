@@ -75,8 +75,9 @@ Automated testing
 
 This module's main page is on [Drupal.org](http://drupal.org/project/expose_status); a mirror is kept on [GitHub](http://github.com/dcycle/expose_status).
 
-CircleCI is used for automated unit tests, functional tests and linting using the technique outlined in [Start unit testing your Drupal and other PHP code today, October 16, 2019, Dcycle Blog](https://blog.dcycle.com/blog/2019-10-16/unit-testing/). Drupal's testing infrastructure is not used for this project since [this issue](https://github.com/dcycle/drupal-tester/issues/2).
+Unit tests are performed on Drupal.org's infrastructure and in GitHub using CircleCI. Linting is performed on GitHub using CircleCI and Drupal.org. For details please see  [Start unit testing your Drupal and other PHP code today, October 16, 2019, Dcycle Blog](https://blog.dcycle.com/blog/2019-10-16/unit-testing/).
 
+* [Test results on Drupal.org's testing infrastructure](https://www.drupal.org/node/3098822/qa)
 * [Test results on CircleCI](https://circleci.com/gh/dcycle/expose_status)
 
 To run automated tests locally, install Docker and type:

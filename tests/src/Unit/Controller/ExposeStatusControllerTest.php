@@ -60,7 +60,7 @@ class ExposeStatusControllerTest extends TestCase {
 
     if ($output != $expected) {
       print_r([
-        'output' => $message,
+        'message' => $message,
         'output' => $output,
         'expected' => $expected,
       ]);
@@ -145,7 +145,7 @@ class ExposeStatusControllerTest extends TestCase {
     ];
 
     $output = $object->get(new Request())->result();
-    
+
     if ($output != $expected) {
       print_r([
         'message' => $message,
