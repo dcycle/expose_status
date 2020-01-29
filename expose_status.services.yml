@@ -2,7 +2,11 @@
 services:
   expose_status:
     class: Drupal\expose_status\ExposeStatus
-    arguments: ['@renderer','@cache_tags.invalidator','@system.manager','@state']
+    arguments:
+      - '@renderer'
+      - '@cache_tags.invalidator'
+      - '@system.manager'
+      - '@state'
   plugin.manager.expose_status:
     class: Drupal\expose_status\ExposeStatusPluginManager
     parent: default_plugin_manager
