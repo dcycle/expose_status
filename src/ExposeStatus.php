@@ -5,6 +5,7 @@ namespace Drupal\expose_status;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Render\RenderContext;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,6 +16,23 @@ class ExposeStatus {
 
   use MessengerTrait;
   use StringTranslationTrait;
+
+  /**
+   * The injected renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * Constructs a new ExposeStatus object.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   An injected renderer.
+   */
+  public function __construct(RendererInterface $renderer) {
+    $this->renderer = $renderer;
+  }
 
   /**
    * Mockable wrapper around global $base_url.
@@ -115,7 +133,7 @@ class ExposeStatus {
     // JSON.
     // See https://blog.dcycle.com/blog/2018-01-24.
     // @codingStandardsIgnoreStart
-    \Drupal::service('renderer')->executeInRenderContext(new RenderContext(), function () use (&$return) {
+    $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$return) {
       $return = \Drupal::service('system.manager')->listRequirements();
     });
     // @codingStandardsIgnoreEnd

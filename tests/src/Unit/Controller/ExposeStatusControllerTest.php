@@ -114,6 +114,7 @@ class ExposeStatusControllerTest extends TestCase {
     // @codingStandardsIgnoreStart
     $object->method('exposeStatusService')
       ->willReturn(new class() extends ExposeStatus {
+        public function __construct() {}
         public function result(Request $request) : array {
           return [
             'cache' => ['some-cache-data'],
