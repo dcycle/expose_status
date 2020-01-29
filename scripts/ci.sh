@@ -10,13 +10,13 @@ echo '=> Run fast tests.'
 echo '=> Drupal PHPUnit tests.'
 ./scripts/php-unit-drupal.sh
 
-echo '=> Deploy an environment.'
+echo '=> Deploy a Drpual 8 environment.'
 ./scripts/deploy.sh
 
-echo '=> Tests on environment.'
+echo '=> Tests on Drupal 8 environment.'
 ./scripts/test-running-environment.sh
 
-echo '=> Destroy the environment.'
+echo '=> Destroy the Drupal 8 environment.'
 ./scripts/destroy.sh
 
 echo '=> Deploy a Drupal 9 environment.'
