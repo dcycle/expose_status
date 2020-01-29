@@ -26,11 +26,4 @@ trait Mockables {
     return AccessResult::forbidden();
   }
 
-  /**
-   * Mockable wrapper around \Drupal::service('expose_status').
-   */
-  public function exposeStatusService() : ExposeStatus {
-    return \Drupal::service('expose_status');
-  }
-
 }

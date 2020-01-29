@@ -18,6 +18,10 @@ namespace Drupal\Core\Cache {
   class CacheableMetadata {}
 }
 
+namespace Drupal\Core\Controller {
+  class ControllerBase {}
+}
+
 namespace Drupal\Core\Messenger {
   trait MessengerTrait {}
 }
