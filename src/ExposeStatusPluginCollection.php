@@ -27,6 +27,14 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
    * @throws \Exception
    */
   public function pluginManager() {
+    // PHPStan complains that dependency injection is better here than using
+    // the \Drupal class, however dependency injection on custom classes is
+    // rather complex, as described in
+    // https://drupal.stackexchange.com/questions/195165/dependency-injection-in-a-custom-class,
+    // and is of little value to us because or manner of mocking this in
+    // tests is to mock the entire ::pluginManager() method, so our code
+    // ends up testable even if we don't have dependency injection.
+    // @phpstan:ignoreError
     return \Drupal::service('plugin.manager.expose_status');
   }
 

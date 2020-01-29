@@ -4,15 +4,35 @@ namespace Drupal\expose_status\Controller;
 
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\expose_status\ExposeStatus;
 use Drupal\expose_status\Utilities\Mockables;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller for the /admin/reports/status/[token] request.
  */
-class ExposeStatusController {
+class ExposeStatusController extends ControllerBase {
 
   use Mockables;
+
+  /**
+   * The injected expose_status service.
+   *
+   * @var \Drupal\expose_status\ExposeStatus
+   */
+  protected $exposeStatus;
+
+  /**
+   * Constructs a new ExposeStatusController object.
+   *
+   * @param \Drupal\expose_status\ExposeStatus $expose_status
+   *   An injected expose_status service.
+   */
+  public function __construct(ExposeStatus $expose_status) {
+    $this->exposeStatus = $expose_status;
+  }
 
   /**
    * Access callback for the expose_status.status route.
@@ -37,6 +57,29 @@ class ExposeStatusController {
     $response = new CacheableJsonResponse($result['response']);
     $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($result['cache']));
     return $response;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $expose_status = $container->get('expose_status');
+    // PHPStan complains that using this should make the class final, but
+    // this is widely used in Drupal, for example in
+    // ./core/lib/Drupal/Core/Entity/Controller/EntityController.php.
+    // Declaring the class final would make it unmockable.
+    // @phpstan:ignoreError
+    return new static($expose_status);
+  }
+
+  /**
+   * Getter for the injected expose_status service.
+   *
+   * @return \Drupal\expose_status\ExposeStatus
+   *   The injected expose_status service.
+   */
+  public function exposeStatusService() : ExposeStatus {
+    return $this->exposeStatus;
   }
 
   /**

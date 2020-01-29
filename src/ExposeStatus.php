@@ -3,10 +3,13 @@
 namespace Drupal\expose_status;
 
 use Drupal\Component\Utility\Crypt;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Render\RenderContext;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\State\State;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\system\SystemManager;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -25,13 +28,43 @@ class ExposeStatus {
   protected $renderer;
 
   /**
+   * The injected cache_tags.invalidator.
+   *
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
+   */
+  protected $cacheTagsInvalidator;
+
+  /**
+   * The injected system.manager.
+   *
+   * @var \Drupal\system\SystemManager
+   */
+  protected $systemManager;
+
+  /**
+   * The state store.
+   *
+   * @var \Drupal\Core\State\State
+   */
+  protected $state;
+
+  /**
    * Constructs a new ExposeStatus object.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   An injected renderer.
+   *   An injected renderer service.
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
+   *   An injected cache_tags.invalidator service.
+   * @param \Drupal\system\SystemManager $system_manager
+   *   An injected system.manager service.
+   * @param \Drupal\Core\State\State $state
+   *   An injected state service.
    */
-  public function __construct(RendererInterface $renderer) {
+  public function __construct(RendererInterface $renderer, CacheTagsInvalidatorInterface $cache_tags_invalidator, SystemManager $system_manager, State $state) {
     $this->renderer = $renderer;
+    $this->cacheTagsInvalidator = $cache_tags_invalidator;
+    $this->systemManager = $system_manager;
+    $this->state = $state;
   }
 
   /**
@@ -132,9 +165,10 @@ class ExposeStatus {
     // "leaked metadata was detected" and refuse to render the resulting
     // JSON.
     // See https://blog.dcycle.com/blog/2018-01-24.
+    $system_manager = $this->systemManager;
     // @codingStandardsIgnoreStart
-    $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$return) {
-      $return = \Drupal::service('system.manager')->listRequirements();
+    $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$return, $system_manager) {
+      $return = $system_manager->listRequirements();
     });
     // @codingStandardsIgnoreEnd
 
@@ -227,14 +261,14 @@ class ExposeStatus {
    *   The existing or newly-created token, or an obfuscated version thereof.
    */
   public function token(bool $obfuscate = FALSE, bool $reset = FALSE) : string {
-    $candidate = \Drupal::state()->get('expose_status_token', '');
+    $candidate = $this->state->get('expose_status_token', '');
     if (!$candidate || $reset) {
       $candidate = $this->generateToken();
-      \Drupal::service('cache_tags.invalidator')
+      $this->cacheTagsInvalidator
         ->invalidateTags([
           'expose-status-security-token-has-changed',
         ]);
-      \Drupal::state()->set('expose_status_token', $candidate);
+      $this->state->set('expose_status_token', $candidate);
     }
     return $obfuscate ? '*****' : $candidate;
   }
