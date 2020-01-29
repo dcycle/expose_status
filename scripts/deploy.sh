@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 # Deploy a development or testing environment.
+# If this is passed with the argument "9", then Drupal 9 is used. Otherwise
+# Drupal 8 is used.
 #
 set -e
 
@@ -17,7 +19,11 @@ echo '-----'
 echo 'About to start persistent (-d) containers based on the images defined'
 echo 'in ./Dockerfile-* files. We are also telling docker-compose to'
 echo 'rebuild the images if they are out of date.'
-docker-compose up -d --build
+if [ "$1" == 9 ]; then
+  docker-compose -f docker-compose.yml -f docker-compose.drupal9.yml up -d --build
+else
+  docker-compose up -d --build
+fi
 
 echo ''
 echo '-----'
