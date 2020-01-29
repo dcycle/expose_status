@@ -1,0 +1,6 @@
+parameters:
+  excludes_analyse:
+    - */tests/*
+    - */expose_status/phpunit-autoload.php
+includes:
+  - /var/www/html/phpstan.neon

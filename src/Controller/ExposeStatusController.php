@@ -20,7 +20,7 @@ class ExposeStatusController {
    * @param string $token
    *   The security token.
    *
-   * @return AccessResultInterface
+   * @return \Drupal\Core\Access\AccessResultInterface
    *   Allowed or denied.
    */
   public function access(string $token) {

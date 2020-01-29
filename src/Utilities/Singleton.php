@@ -19,8 +19,9 @@ trait Singleton {
    *
    * Only one instance of the Concord class should exist per execution.
    *
-   * @return Concord
-   *   The single instance of the concord class.
+   * @return mixed
+   *   The single instance of the class using the Singleton trait. (PHP does
+   *   not at this type allow type-hinting traits, which is why this is mixed.)
    */
   static public function instance() {
     // See http://stackoverflow.com/questions/15443458
