@@ -1,0 +1,4 @@
+---
+services:
+  drupal:
+    image: dcycle/drupal:9
