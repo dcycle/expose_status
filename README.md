@@ -63,7 +63,7 @@ Local development
 
 If you install Docker on your computer:
 
-* you can set up a complete local development workspace by downloading this codebase and running `./scripts/deploy.sh`. You do not need a separate Drupal instance. `./scripts/uli.sh` will provide you with a login link to your environment.
+* you can set up a complete local development workspace by downloading this codebase and running `./scripts/deploy.sh`. To test with Drupal 9, use `./scripts/deploy.sh 9`. You do not need a separate Drupal instance. `./scripts/uli.sh` will provide you with a login link to your environment.
 * you can destroy your local environment by running `./scripts/destroy.sh`.
 * you can run all tests by running `./scripts/ci.sh`; please make sure all tests before submitting a patch.
 
@@ -89,4 +89,4 @@ To run automated tests locally, install Docker and type:
 Drupal 9 readiness
 -----
 
-A tested and working Drupal 9 version is maintained on the 9.x-1.x branch; we check for deprecated code using a [dockerized version](https://github.com/dcycle/docker-drupal-check) of [Drupal Check](https://github.com/dcycle/docker-drupal-check).
+As of version 8.x-1.0-beta6, this module is usable, and tested on CircleCI, with Drupal 9. We check for deprecated code using a [dockerized version](https://github.com/dcycle/docker-drupal-check) of [Drupal Check](https://github.com/dcycle/docker-drupal-check).

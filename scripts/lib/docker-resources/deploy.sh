@@ -2,7 +2,7 @@
 #
 # This script is run when the Drupal docker container is ready. It prepares
 # an environment for development or testing, which contains a full Drupal
-# 8 installation with a running website.
+# installation with a running website.
 #
 set -e
 

@@ -7,14 +7,26 @@ set -e
 echo '=> Run fast tests.'
 ./scripts/test.sh
 
-echo '=> Deploy an environment.'
+echo '=> Deploy a Drupal 8 environment.'
 ./scripts/deploy.sh
 
-echo '=> Drupal PHPUnit tests.'
+echo '=> Drupal PHPUnit tests on required Drupal 8 environment.'
 ./scripts/php-unit-drupal.sh
 
-echo '=> Tests on environment.'
+echo '=> Tests on Drupal 8 environment.'
 ./scripts/test-running-environment.sh
 
-echo '=> Destroy the environment.'
+echo '=> Destroy the Drupal 8 environment.'
+./scripts/destroy.sh
+
+echo '=> Deploy a Drupal 9 environment.'
+./scripts/deploy.sh 9
+
+echo '=> Drupal PHPUnit tests on required Drupal 9 environment.'
+./scripts/php-unit-drupal.sh
+
+echo '=> Tests on Drupal 9 environment.'
+./scripts/test-running-environment.sh
+
+echo '=> Destroy the Drupal 9 environment.'
 ./scripts/destroy.sh
