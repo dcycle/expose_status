@@ -17,14 +17,18 @@ class ExposeStatus {
   use MessengerTrait;
   use StringTranslationTrait;
 
-  /*
-   * @var \Drupal\Core\Render\RendererInterface $renderer
+  /**
+   * The injected renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
 
   /**
-   * Constructs a new DrupaliseMe object.
+   * Constructs a new ExposeStatus object.
+   *
    * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   An injected renderer.
    */
   public function __construct(RendererInterface $renderer) {
     $this->renderer = $renderer;
