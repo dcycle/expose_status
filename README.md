@@ -32,13 +32,15 @@ Ignoring certain warnings
 
 Let's say you want to ignore the "File system", "Trusted Host Settings" and "Drupal core update status" errors/warnings (not recommended, just for illustration purposes), you can:
 
-(1) enable the included "expose_status_ignore" module.
+(1) Enable the included "expose_status_ignore" module.
 
-(2) run `drush ev "print_r(\Drupal::service('system.manager')->listRequirements());"`
+(2) Temporarily enable the included "expose_status_details" module.
 
-(3) find, in the output of the above command, the array key of the items you want to ignore, in this case "file system", "trusted_host_patterns" and "update_core".
+(3) Visit example.com/admin/reports/status/expose/***** and identify the items you want to ignore, let's say "file system", "trusted_host_patterns" and "update_core". These are items which have error codes higher than 0.
 
-(4) visit the URL at example.com/admin/reports/status/expose/*****?ignore=file%20system,trusted_host_patterns,update_core
+(4) Based on this, visit the URL at example.com/admin/reports/status/expose/*****?ignore=file%20system,trusted_host_patterns,update_core and make sure the status is now OK.
+
+(5) At this point you can disable the "expose_status_details" module.
 
 Only fail on errors, not warnings
 -----
