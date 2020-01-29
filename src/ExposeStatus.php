@@ -101,7 +101,7 @@ class ExposeStatus {
    *   A random token.
    */
   public function generateToken() : string {
-    return Crypt::hashBase64(Crypt::randomBytes(128));
+    return Crypt::hashBase64(random_bytes(128));
   }
 
   /**
