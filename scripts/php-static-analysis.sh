@@ -12,4 +12,5 @@ docker run --rm \
   -v "$(pwd)":/var/www/html/modules/custom/expose_status \
   dcycle/phpstan-drupal:3 \
   -c /var/www/html/modules/custom/expose_status/scripts/lib/phpstan/phpstan.neon \
-  /var/www/html/modules/custom
+  /var/www/html/modules/custom \
+  --memory-limit=-1
