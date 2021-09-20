@@ -27,7 +27,7 @@ use Drupal\expose_status\Annotation\ExposeStatusPluginAnnotation;
  */
 // See https://github.com/mglaman/phpstan-drupal/issues/113
 // @codingStandardsIgnoreStart
-// @phpstan:ignoreError
+// @phpstan-ignore-next-line
 class ExposeStatusPluginManager extends DefaultPluginManager {
 // @codingStandardsIgnoreEnd
 

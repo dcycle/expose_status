@@ -12,7 +12,7 @@ use Drupal\expose_status\ExposeStatus;
 /**
  * Quick access to the expose_status service, useful for debugging.
  *
- * @return ExposeStatus
+ * @return \Drupal\expose_status\ExposeStatus
  *   The ExposeStatus service.
  */
 function expose_status() : ExposeStatus {

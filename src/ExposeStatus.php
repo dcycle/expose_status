@@ -202,7 +202,7 @@ class ExposeStatus {
   /**
    * Get a result based on a request object.
    *
-   * @param Request $request
+   * @param \Symfony\Component\HttpFoundation\Request $request
    *   The Request object.
    *
    * @return array

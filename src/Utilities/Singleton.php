@@ -23,7 +23,7 @@ trait Singleton {
    *   The single instance of the class using the Singleton trait. (PHP does
    *   not at this type allow type-hinting traits, which is why this is mixed.)
    */
-  static public function instance() {
+  public static function instance() {
     // See http://stackoverflow.com/questions/15443458
     $class = get_called_class();
 
