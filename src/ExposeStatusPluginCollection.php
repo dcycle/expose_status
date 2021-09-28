@@ -34,7 +34,7 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
     // and is of little value to us because or manner of mocking this in
     // tests is to mock the entire ::pluginManager() method, so our code
     // ends up testable even if we don't have dependency injection.
-    // @phpstan:ignoreError
+    // @phpstan-ignore-next-line
     return \Drupal::service('plugin.manager.expose_status');
   }
 

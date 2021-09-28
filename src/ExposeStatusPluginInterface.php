@@ -14,7 +14,7 @@ interface ExposeStatusPluginInterface {
   /**
    * Alter response.
    *
-   * @param Request $request
+   * @param \Symfony\Component\HttpFoundation\Request $request
    *   The request object.
    * @param array $result
    *   The original result information.
@@ -26,7 +26,7 @@ interface ExposeStatusPluginInterface {
   /**
    * Alter result.
    *
-   * @param Request $request
+   * @param \Symfony\Component\HttpFoundation\Request $request
    *   The request object.
    * @param array $result
    *   The result to alter.

@@ -68,7 +68,7 @@ class ExposeStatusController extends ControllerBase {
     // this is widely used in Drupal, for example in
     // ./core/lib/Drupal/Core/Entity/Controller/EntityController.php.
     // Declaring the class final would make it unmockable.
-    // @phpstan:ignoreError
+    // @phpstan-ignore-next-line
     return new static($expose_status);
   }
 
@@ -88,10 +88,10 @@ class ExposeStatusController extends ControllerBase {
    * This assumes that access has already been determined using the ::access()
    * method.
    *
-   * @param Request $request
+   * @param \Symfony\Component\HttpFoundation\Request $request
    *   The http request object.
    *
-   * @return CacheableJsonResponse
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    *   A Json response.
    *
    * @throws \Exception
