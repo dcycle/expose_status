@@ -2,8 +2,7 @@
 name: Expose Status Report Ignore
 type: module
 description: Expose the status report via JSON.
-core: '8.x'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9
 php: '7.x'
 dependencies:
   - expose_status:expose_status

@@ -10,7 +10,7 @@ echo ''
 echo '// @phpstan-ignore-next-line'
 docker run --rm \
   -v "$(pwd)":/var/www/html/modules/custom/expose_status \
-  dcycle/phpstan-drupal:3 \
+  dcycle/phpstan-drupal:4 \
   -c /var/www/html/modules/custom/expose_status/scripts/lib/phpstan/phpstan.neon \
   /var/www/html/modules/custom \
   --memory-limit=-1
