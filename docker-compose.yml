@@ -5,7 +5,7 @@ version: '2'
 
 services:
   drupal:
-    image: dcycle/drupal:8drush
+    image: dcycle/drupal:9
     volumes:
       - ".:/var/www/html/modules/custom/expose_status"
     ports:
@@ -15,7 +15,7 @@ services:
     working_dir: /var/www/html
 
   mysql:
-    image: mysql:5
+    image: mariadb
     environment:
       MYSQL_DATABASE: drupal
       MYSQL_ROOT_PASSWORD: drupal
