@@ -54,16 +54,7 @@ class ExposeStatusController extends ControllerBase {
    * Mockable wrapper around a cacheable JSON response with metadata.
    */
   public function cacheableResponse(array $result) : CacheableJsonResponse {
-    // According to
-    // https://api.drupal.org/api/drupal/core%21modules%21system%21tests%21modules%21system_test%21src%21Controller%21PageCacheAcceptHeaderController.php/function/PageCacheAcceptHeaderController%3A%3Acontent/8.2.x
-    // CacheableJsonResponse can be called with a parameter.
-    // See https://github.com/mglaman/phpstan-drupal/issues/339
-    // @phpstan-ignore-next-line
     $response = new CacheableJsonResponse($result['response']);
-    // According to
-    // https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Cache%21CacheableJsonResponse.php/class/CacheableJsonResponse/8.2.x
-    // addCacheableDependency() is fine.
-    // @phpstan-ignore-next-line
     $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($result['cache']));
     return $response;
   }
