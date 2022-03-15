@@ -15,3 +15,6 @@ echo '=> Tests on Drupal 9 environment.'
 
 echo '=> Destroy the Drupal 9 environment.'
 ./scripts/destroy.sh
+
+echo '=> Done with continuous integration tests!'
+echo '=>'
