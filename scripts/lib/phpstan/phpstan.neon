@@ -3,5 +3,6 @@ parameters:
   excludePaths:
     - */tests/*
     - */expose_status/phpunit-autoload.php
+    - */expose_status/phpunit-bootstrap.php
 includes:
   - /var/www/html/phpstan.neon

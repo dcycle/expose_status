@@ -39,10 +39,6 @@ class IgnoreLines extends ExposeStatusPluginBase {
    * {@inheritdoc}
    */
   public function alterResult(Request $request, array &$result) {
-    // According to
-    // https://github.com/symfony/http-foundation/blob/5.4/Request.php
-    // query is valid.
-    // @phpstan-ignore-next-line
     $query = $request->query;
     foreach (explode(',', $query->get('ignore')) as $key) {
       unset($result['raw'][$key]);
