@@ -23,10 +23,6 @@ class SeverityLevel extends ExposeStatusPluginBase {
    * {@inheritdoc}
    */
   public function alterResponse(Request $request, array $result, array &$response) {
-    // According to
-    // https://github.com/symfony/http-foundation/blob/5.4/Request.php
-    // query is valid.
-    // @phpstan-ignore-next-line
     $query = $request->query;
     if ($level = intval($query->get('level'))) {
       $response['status'] = 'ok';
