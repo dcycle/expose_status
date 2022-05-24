@@ -19,6 +19,6 @@ sleep 90
 
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
   root@"$IP" \
-  "git clone http://github.com/dcycle/expose_status && \
+  "git clone --branch working http://github.com/dcycle/expose_status && \
   cd expose_status && \
   ./scripts/ci.sh"
