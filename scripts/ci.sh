@@ -5,7 +5,7 @@
 set -e
 
 echo '=> Run fast tests.'
-./scripts/test.sh
+# ./scripts/test.sh
 
 echo '=> Deploy a Drupal 9 environment.'
 ./scripts/deploy.sh
