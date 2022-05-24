@@ -4,22 +4,20 @@
 version: '2'
 
 services:
-  drupal:
-    image: dcycle/drupal:9
-    volumes:
-      - ".:/var/www/html/modules/custom/expose_status"
-    ports:
-      - "80"
-    links:
-      - mysql:mysql
-    working_dir: /var/www/html
-
   mysql:
     image: mariadb
     environment:
       MYSQL_DATABASE: drupal
       MYSQL_ROOT_PASSWORD: drupal
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+
+  drupal:
+    image: dcycle/drupal:9
+    volumes:
+      - ".:/var/www/html/modules/custom/expose_status"
+    ports:
+      - "80"
+    working_dir: /var/www/html
 
 # Specifying the network name makes it predictable on all environments,
 # for example when we run browser tests.
