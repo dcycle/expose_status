@@ -24,7 +24,7 @@ class Details extends ExposeStatusPluginBase {
   public function alterResponse(Request $request, array $result, array &$response) {
     $response['details'] = [];
     foreach ($result['raw'] as $id => $line) {
-      $response['details'][$id] = isset($line['severity']) ? $line['severity'] : 0;
+      $response['details'][$id] = $line['severity'] ?? 0;
     }
   }
 
