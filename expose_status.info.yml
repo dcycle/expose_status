@@ -3,4 +3,4 @@ name: Expose Status Report
 type: module
 description: Expose a Drupal site's status report via JSON.
 core_version_requirement: ^9
-php: '7.x'
+php: '8.x'

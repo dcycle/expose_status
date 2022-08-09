@@ -3,6 +3,6 @@ name: Expose Status Report Severity
 type: module
 description: Allow severity threshold for exposed status report.
 core_version_requirement: ^9
-php: '7.x'
+php: '8.x'
 dependencies:
   - expose_status:expose_status
