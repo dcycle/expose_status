@@ -11,5 +11,5 @@ echo '// @codingStandardsIgnoreStart'
 echo '...'
 echo '// @codingStandardsIgnoreEnd'
 echo ''
-docker run --rm -v "$(pwd)":/code dcycle/php-lint:2 --extensions=php,module,install,inc --standard=DrupalPractice /code
-docker run --rm -v "$(pwd)":/code dcycle/php-lint:2 --extensions=php,module,install,inc --standard=Drupal /code
+docker run --rm -v "$(pwd)":/code dcycle/php-lint:3 --extensions=php,module,install,inc --standard=DrupalPractice /code
+docker run --rm -v "$(pwd)":/code dcycle/php-lint:3 --extensions=php,module,install,inc --standard=Drupal /code

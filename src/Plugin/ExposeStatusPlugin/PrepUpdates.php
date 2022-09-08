@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  *   },
  * )
  */
-class Details extends ExposeStatusPluginBase {
+class PrepUpdates extends ExposeStatusPluginBase {
 
   /**
    * {@inheritdoc}

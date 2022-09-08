@@ -15,7 +15,11 @@ use Drupal\expose_status\ExposeStatus;
  * @return \Drupal\expose_status\ExposeStatus
  *   The ExposeStatus service.
  */
+// @codingStandardsIgnoreStart
+// PHP Lint wants this to be prefixed with the module name, but it _is_
+// the same as the module name, so I consider this ok.
 function expose_status() : ExposeStatus {
+// @codingStandardsIgnoreEnd
   return \Drupal::service('expose_status');
 }
 
