@@ -16,7 +16,7 @@ abstract class ExposeStatusPluginBase extends PluginBase implements ExposeStatus
   /**
    * {@inheritdoc}
    */
-  public function prepare(Request $request) {
+  public function prepare() {
     // Do nothing. Subclasses can prepare if they need to.
   }
 

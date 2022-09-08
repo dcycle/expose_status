@@ -155,6 +155,8 @@ class ExposeStatus {
    * @throws \Exception
    */
   public function rawData() : array {
+    $this->plugins()->prepare();
+
     $return = [];
 
     // Certain items in the requirements list might contain leaked caching
@@ -211,8 +213,6 @@ class ExposeStatus {
    * @throws \Exception
    */
   public function result(Request $request) : array {
-    $this->plugins()->prepare($request);
-
     $raw = $this->rawData();
 
     $result = [

@@ -29,11 +29,8 @@ interface ExposeStatusPluginInterface {
    * A real-world example of this is
    * ./src/Plugin/ExposeStatusPlugin/PrepUpdates.php which loads upadte
    * information to make it up-to-date.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The request object.
    */
-  public function prepare(Request $request);
+  public function prepare();
 
   /**
    * Alter result.

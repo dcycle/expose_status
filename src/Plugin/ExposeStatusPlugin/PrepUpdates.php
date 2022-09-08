@@ -3,7 +3,6 @@
 namespace Drupal\expose_status\Plugin\ExposeStatusPlugin;
 
 use Drupal\expose_status\ExposeStatusPluginBase;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Prepares the system by making sure update info is up-to-date.
@@ -21,7 +20,7 @@ class PrepUpdates extends ExposeStatusPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(Request $request) {
+  public function prepare() {
     if (function_exists('update_get_available')) {
       // This makes the update info up-to-date so that if you update a module,
       // that fact will be reflected immediately.

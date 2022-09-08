@@ -104,9 +104,9 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function prepare(Request $request) {
+  public function prepare() {
     foreach ($this->plugins() as $plugin) {
-      $plugin->prepare($request);
+      $plugin->prepare();
     }
   }
 
