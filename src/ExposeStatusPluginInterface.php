@@ -24,6 +24,15 @@ interface ExposeStatusPluginInterface {
   public function alterResponse(Request $request, array $result, array &$response);
 
   /**
+   * Prepare the system before fetching raw data.
+   *
+   * A real-world example of this is
+   * ./src/Plugin/ExposeStatusPlugin/PrepUpdates.php which loads upadte
+   * information to make it up-to-date.
+   */
+  public function prepare();
+
+  /**
    * Alter result.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request

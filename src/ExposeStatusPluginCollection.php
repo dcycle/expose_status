@@ -104,6 +104,15 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
   /**
    * {@inheritdoc}
    */
+  public function prepare() {
+    foreach ($this->plugins() as $plugin) {
+      $plugin->prepare();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function alterResponse(Request $request, array $result, array &$response) {
     foreach ($this->plugins() as $plugin) {
       $plugin->alterResponse($request, $result, $response);
