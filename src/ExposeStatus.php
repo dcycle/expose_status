@@ -211,6 +211,8 @@ class ExposeStatus {
    * @throws \Exception
    */
   public function result(Request $request) : array {
+    $this->plugins()->prepare($request);
+
     $raw = $this->rawData();
 
     $result = [
