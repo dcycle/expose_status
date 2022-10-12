@@ -5,7 +5,7 @@
 set -e
 
 echo '=> Running tests on a running environment.'
-URL="$(docker-compose port drupal 80)"
+URL="$(docker-compose port webserver 80)"
 TOKEN="$(docker-compose exec -T drupal /bin/bash -c 'drush ev "expose_status_token()"')"
 
 echo 'Make sure values returned make sense with base and submodules enabled'

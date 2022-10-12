@@ -85,8 +85,3 @@ Unit tests are performed on Drupal.org's infrastructure and in GitHub using Circ
 To run automated tests locally, install Docker and type:
 
     ./scripts/ci.sh
-
-Drupal 9 readiness
------
-
-As of version 8.x-1.0-beta6, this module is usable, and tested on CircleCI, with Drupal 9. We check for deprecated code using a [dockerized version](https://github.com/dcycle/docker-drupal-check) of [Drupal Check](https://github.com/dcycle/docker-drupal-check).
