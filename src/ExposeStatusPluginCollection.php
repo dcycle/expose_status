@@ -8,39 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Abstraction around a collection of plugins.
  */
-class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
+class ExposeStatusPluginCollection implements ExposeStatusPluginInterface, ExposeStatusPluginCollectionInterface {
 
   use Singleton;
 
   /**
-   * Mockable wrapper around \Drupal::service('plugin.manager.expose_status').
-   *
-   * @return mixed
-   *   The ExposeStatusPluginManager service. We are not specifying its type
-   *   here because during testing we want to mock pluginManager() without
-   *   extending ExposeStatusPluginManager; when we do, it works fine in
-   *   PHPUnit directly. However when attempting to run within Drupal we
-   *   get an unhelpful message as described in
-   *   https://drupal.stackexchange.com/questions/252930. Therefore we simply
-   *   use an anonymous class.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function pluginManager() {
     return \Drupal::service('plugin.manager.expose_status');
   }
 
   /**
-   * Get plugin objects.
-   *
-   * @param bool $reset
-   *   Whether to re-fetch plugins; otherwise we use the static variable.
-   *   This can be useful during testing.
-   *
-   * @return array
-   *   Array of plugin objects.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function plugins(bool $reset = FALSE) : array {
     static $return = NULL;
@@ -56,12 +36,7 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
   }
 
   /**
-   * Get plugin definitions based on their annotations.
-   *
-   * @return array
-   *   Array of plugin definitions.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function pluginDefinitions() : array {
     $return = $this->pluginManager()->getDefinitions();
@@ -77,17 +52,7 @@ class ExposeStatusPluginCollection implements ExposeStatusPluginInterface {
   }
 
   /**
-   * Get an array of example URLs for usage.
-   *
-   * @param string $base_url
-   *   The base URL to use for the examples.
-   * @param string $token
-   *   A token which should be used for the examples.
-   *
-   * @return array
-   *   Array of example URLs for usage.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function exampleUrls(string $base_url, string $token) : array {
     $return = [];
