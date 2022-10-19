@@ -3,9 +3,6 @@
 namespace Drupal\expose_status\Utilities;
 
 use Drupal\Core\Access\AccessResult;
-// @codingStandardsIgnoreStart
-use Drupal\expose_status\ExposeStatus;
-// @codingStandardsIgnoreEnd
 
 /**
  * A quick way to fetch mockable service singletons.

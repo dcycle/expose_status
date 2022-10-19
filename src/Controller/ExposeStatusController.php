@@ -5,7 +5,7 @@ namespace Drupal\expose_status\Controller;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\expose_status\ExposeStatus;
+use Drupal\expose_status\ExposeStatusInterface;
 use Drupal\expose_status\Utilities\Mockables;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,17 +20,17 @@ class ExposeStatusController extends ControllerBase {
   /**
    * The injected expose_status service.
    *
-   * @var \Drupal\expose_status\ExposeStatus
+   * @var \Drupal\expose_status\ExposeStatusInterface
    */
   protected $exposeStatus;
 
   /**
    * Constructs a new ExposeStatusController object.
    *
-   * @param \Drupal\expose_status\ExposeStatus $expose_status
+   * @param \Drupal\expose_status\ExposeStatusInterface $expose_status
    *   An injected expose_status service.
    */
-  public function __construct(ExposeStatus $expose_status) {
+  public function __construct(ExposeStatusInterface $expose_status) {
     $this->exposeStatus = $expose_status;
   }
 
@@ -75,10 +75,10 @@ class ExposeStatusController extends ControllerBase {
   /**
    * Getter for the injected expose_status service.
    *
-   * @return \Drupal\expose_status\ExposeStatus
+   * @return \Drupal\expose_status\ExposeStatusInterface
    *   The injected expose_status service.
    */
-  public function exposeStatusService() : ExposeStatus {
+  public function exposeStatusService() : ExposeStatusInterface {
     return $this->exposeStatus;
   }
 

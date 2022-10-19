@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * ExposeStatus singleton. Use \Drupal::service('expose_status').
  */
-class ExposeStatus {
+class ExposeStatus implements ExposeStatusInterface {
 
   use MessengerTrait;
   use StringTranslationTrait;
@@ -68,7 +68,7 @@ class ExposeStatus {
   }
 
   /**
-   * Mockable wrapper around global $base_url.
+   * {@inheritdoc}
    */
   public function baseUrl() : string {
     global $base_url;
@@ -77,13 +77,7 @@ class ExposeStatus {
   }
 
   /**
-   * Get example URLs including examples from plugins.
-   *
-   * @param bool $obfuscate
-   *   Whether or not to obfuscate the security token in the examples.
-   *
-   * @return array
-   *   Array of example URLs for usage of this system.
+   * {@inheritdoc}
    */
   public function exampleUrls(bool $obfuscate) : array {
     $base_url = $this->baseUrl();
@@ -95,17 +89,14 @@ class ExposeStatus {
   }
 
   /**
-   * Generate a random token.
-   *
-   * @return string
-   *   A random token.
+   * {@inheritdoc}
    */
   public function generateToken() : string {
     return Crypt::hashBase64(random_bytes(128));
   }
 
   /**
-   * Testable implementation of hook_requirements().
+   * {@inheritdoc}
    */
   public function hookRequirements(string $phase) : array {
     if ($phase == 'runtime') {
@@ -115,15 +106,7 @@ class ExposeStatus {
   }
 
   /**
-   * Get a string with instructions how to use this system, with examples.
-   *
-   * @param bool $obfuscate
-   *   If TRUE, obfucase the token in the output.
-   *
-   * @return string
-   *   Instructions on how to use this system.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function instructions(bool $obfuscate = FALSE) : string {
     return $this->t('You can get the overall status in JSON format using, for example, @urls.', [
@@ -132,27 +115,14 @@ class ExposeStatus {
   }
 
   /**
-   * Get all ExposeStatusPlugin plugins.
-   *
-   * See the included expose_status_ignore module for an example of how to
-   * create a Plugin.
-   *
-   * @return ExposeStatusPluginCollection
-   *   All plugins.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function plugins() : ExposeStatusPluginCollection {
     return ExposeStatusPluginCollection::instance();
   }
 
   /**
-   * Get the raw data from Drupal.
-   *
-   * @return array
-   *   The raw data of Drupal requirements.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function rawData() : array {
     $this->plugins()->prepare();
@@ -178,15 +148,7 @@ class ExposeStatus {
   }
 
   /**
-   * Given raw data, return either "ok", or "issues found; please check".
-   *
-   * Developers can override this using the plugin system.
-   *
-   * @param array $raw
-   *   The raw data.
-   *
-   * @return string
-   *   "ok", or "issues found; please check".
+   * {@inheritdoc}
    */
   public function rawDataToStatus(array $raw) : string {
     $return = 'ok';
@@ -202,15 +164,7 @@ class ExposeStatus {
   }
 
   /**
-   * Get a result based on a request object.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The Request object.
-   *
-   * @return array
-   *   An array with the keys cache, unaltered_raw, raw, and response.
-   *
-   * @throws \Exception
+   * {@inheritdoc}
    */
   public function result(Request $request) : array {
     $raw = $this->rawData();
@@ -252,15 +206,7 @@ class ExposeStatus {
   }
 
   /**
-   * Get the token, creating it if it does not exist.
-   *
-   * @param bool $obfuscate
-   *   If TRUE, return an obfuscated (*****) version of the token.
-   * @param bool $reset
-   *   Whether or not reset the token.
-   *
-   * @return string
-   *   The existing or newly-created token, or an obfuscated version thereof.
+   * {@inheritdoc}
    */
   public function token(bool $obfuscate = FALSE, bool $reset = FALSE) : string {
     $candidate = $this->state->get('expose_status_token', '');
