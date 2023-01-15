@@ -40,8 +40,18 @@ class IgnoreLines extends ExposeStatusPluginBase {
    */
   public function alterResult(Request $request, array &$result) {
     $query = $request->query;
+    $result_all = $result;
+    $negate = $query->get('ignore_negate');
+    if ($negate) {
+      $result['raw'] = [];
+    }
     foreach (explode(',', $query->get('ignore')) as $key) {
-      unset($result['raw'][$key]);
+      if ($negate) {
+        $result['raw'][$key] = $result_all['raw'][$key];
+      }
+      else {
+        unset($result['raw'][$key]);
+      }
     }
   }
 
