@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+
+# shellcheck disable=SC1090
 source ~/.docker-host-ssh-credentials
 
 # Create a droplet

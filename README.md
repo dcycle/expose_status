@@ -42,6 +42,11 @@ Let's say you want to ignore the "File system", "Trusted Host Settings" and "Dru
 
 (5) At this point you can disable the "expose_status_details" module.
 
+Negating the modules to ignore
+-----
+
+We saw above that to ignore file system we would add ?ignore=file%20system to the URL. To ignore **all but the file system key**, we can negate the ignore condition by adding ?ignore_negate=1&ignore=file%20system.
+
 Only fail on errors, not warnings
 -----
 
@@ -49,7 +54,7 @@ By default both warnings (level 1) and errors (level 2) will trigger a "issues f
 
 (1) enable the included "expose_status_severity" module.
 
-(2) visit the URL at example.com/admin/reports/status/expose/*****?severity=1
+(2) visit the URL at example.com/admin/reports/status/expose/*****?only_above_level=1
 
 Note that the submodules (ignore, severity, details) can be combined.
 

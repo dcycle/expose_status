@@ -20,11 +20,32 @@ use Symfony\Component\HttpFoundation\Request;
 class SeverityLevel extends ExposeStatusPluginBase {
 
   /**
+   * Get the security level above which to trigger an error.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request object.
+   *
+   * @return int
+   *   The security level above which to trigger an error.
+   */
+  public function onlyAboveLevel(Request $request) : int {
+    // Starting in version 4.1.0 we are using only_above_level which is less
+    // confusing that level. But wee might be dealing with sites that still use
+    // the pre-4.1.0 "level".
+    foreach (['only_above_level', 'level'] as $param) {
+      $candidate = intval($request->query->get($param));
+      if ($candidate) {
+        return $candidate;
+      }
+    }
+    return 0;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function alterResponse(Request $request, array $result, array &$response) {
-    $query = $request->query;
-    if ($level = intval($query->get('level'))) {
+    if ($level = $this->onlyAboveLevel($request)) {
       $response['status'] = 'ok';
       foreach ($result['raw'] as $line) {
         if (isset($line['severity']) && $line['severity'] > $level) {

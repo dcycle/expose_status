@@ -28,5 +28,5 @@ if [[ "$OUTPUT" == *"ERROR"* ]]; then
 fi
 
 drush si -y --db-url "mysql://root:drupal@mysql/drupal" minimal
-drush en -y expose_status_ignore expose_status_severity expose_status_details
+drush en -y expose_status_ignore expose_status_severity expose_status_details expose_status_selftest
 drush ev "\Drupal::service('expose_status')->instructions()"

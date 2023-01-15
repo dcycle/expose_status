@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function expose_status_selftest_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'runtime') {
+    foreach ([0, 1, 2] as $severity) {
+      $requirements['expose_status_' . $severity] = [
+        'title' => t('Just self-testing severity @s for the expose_status module.', [
+          '@s' => $severity,
+        ]),
+        'value' => $severity,
+        'severity' => intval($severity),
+      ];
+    }
+  }
+  return $requirements;
+}
