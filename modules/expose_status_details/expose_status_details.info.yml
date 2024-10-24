@@ -2,7 +2,7 @@
 name: Expose Status Report Details
 type: module
 description: Expose details in addition to the overall result.
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 php: '8.x'
 dependencies:
   - expose_status:expose_status
