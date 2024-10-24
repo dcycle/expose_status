@@ -6,5 +6,5 @@ description: >
   Help in self-testing the expose_status module by providing three items in
   hook_requirement, expose_status_0, expose_status_1, and expose_status_2 with
   values of 0, 1, and 2 respectively.
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 php: '8.x'
